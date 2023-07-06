@@ -10,10 +10,10 @@ import '../utils/styles.css'
 import { useNavigate } from 'react-router-dom';
 
 
-const Auth = () => {
+const Login = () => {
     const navigate = useNavigate()
 
-    const paperStyle = { padding: 10, width: 315, margin: "20vh 15vw ", background: '#F8F8F8' }
+    const paperStyle = { padding: 10, height: '50vh', width: 315, margin: "20vh 15vw ", background: '#F8F8F8' }
     const marginStyle = { margin: "10px 0" }
     const gridStyle = { height: '100vh', width: 'vmax', background: '#F8F8F8' }
     return (
@@ -21,21 +21,13 @@ const Auth = () => {
             <Grid item container xs={6} direction="column" >
                 <Paper align='center' elevation={0} style={paperStyle}>
                     <Grid>
-                        <h2>Добро пожаловать!</h2>
+                        <h2>С возвращением!</h2>
                         Пожалуйста, введите данные.
                         <div></div>
 
                         <TextField
-                            label='Имя'
-                            placeholder='Введите ваше имя'
-                            variant="outlined"
-                            style={marginStyle}
-                            fullWidth>
-                        </TextField>
-
-                        <TextField
                             label='Email'
-                            placeholder='Введите ваш email'
+                            placeholder='Введите email'
                             variant="outlined"
                             style={marginStyle}
                             fullWidth>
@@ -43,7 +35,7 @@ const Auth = () => {
 
                         <TextField
                             label='Пароль'
-                            placeholder='Введите ваш пароль'
+                            placeholder='Введите пароль'
                             type='password'
                             variant="outlined"
                             style={marginStyle}
@@ -55,20 +47,18 @@ const Auth = () => {
                             variant="contained"
                             color="primary"
                             fullWidth >
-                            Зарегистрироваться
+                            Войти
                         </Button>
-                        Уже есть аккаунт?
+                        Нет аккаунта?
                         <Typography style={marginStyle}>
-                            <Link 
-                            component="button"
-                            onClick={() => navigate('/login')}
-                            >
-                                Войти
+                            <Link
+                                component="button"
+                                onClick={() => navigate('/auth')} >
+                                Зарегистрируйтесь бесплатно!
                             </Link>
                         </Typography>
                     </Grid>
                 </Paper>
-
             </Grid>
             <Grid item container xs={6}>
                 <img className="image2" src={image2} height={143} width={158} alt='image2' />
@@ -78,8 +68,7 @@ const Auth = () => {
                 <img className="image3" src={image3} height={150} width={200} alt='image3' />
             </Grid>
         </Grid>
-
     );
 };
 
-export default Auth;
+export default Login;

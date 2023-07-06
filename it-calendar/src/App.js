@@ -1,13 +1,24 @@
 
+import { ThemeProvider, createTheme } from '@material-ui/core';
 import './App.css';
 import AppRouter from './components/AppRouter';
 import { BrowserRouter } from 'react-router-dom';
 
-const App = () =>{
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#71B8DF',
+    },
+  }    
+})
+
+const App = () => {
   return (
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

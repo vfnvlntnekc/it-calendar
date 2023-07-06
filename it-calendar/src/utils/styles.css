@@ -1,0 +1,25 @@
+.image1 {
+    margin-top: 17vh;
+    margin-left: 2vw;
+}
+
+.image2 {
+    margin-top: 15vh;
+}
+
+.image6 {
+    margin-top: 22vh;
+    margin-left: 2vw;
+}
+
+.calendar {
+    height: 500px;
+}
+
+.paper {
+    padding: 10;
+    height: '50vh';
+    width: 315;
+    margin: "20vh 15vw ";
+    background: '#F8F8F8'
+}
