@@ -74,7 +74,21 @@ const AddTask = () => {
     }).then((data) => console.log(data));
     navigate("/");
   };
-
+  /*<FormControl fullWidth>
+              <InputLabel>Исполнители</InputLabel>
+              <Select
+                multiple
+                value={people}
+                onChange={(e) => setPeople(e.target.value)}
+                MenuProps={MenuProps}
+              >
+                {problem.people.data?.map((user) => (
+                  <MenuItem key={user.user_id} value={user.user_id}>
+                    {user.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl> */
   return (
     <Grid container style={gridStyle}>
       <Grid
@@ -106,21 +120,6 @@ const AddTask = () => {
                 {problem.steps.data?.map((step) => (
                   <MenuItem key={step.step_id} value={step.step_id}>
                     {step.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel>Исполнители</InputLabel>
-              <Select
-                multiple
-                value={people}
-                onChange={(e) => setPeople(e.target.value)}
-                MenuProps={MenuProps}
-              >
-                {problem.people.data?.map((user) => (
-                  <MenuItem key={user.user_id} value={user.user_id}>
-                    {user.name}
                   </MenuItem>
                 ))}
               </Select>

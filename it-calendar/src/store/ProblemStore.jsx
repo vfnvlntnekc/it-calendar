@@ -10,15 +10,8 @@ export default class ProblemStore {
     this._selectedStep = {};
     this._selectedTask = {};
     this._selectedPeople = [];
-    this._selectedProjectInfo = [
-      {
-        project_id: 0,
-        name: "0",
-        project_description: "0",
-        date_begin_project: "2023-05-01T00:00:00",
-        date_complete_project: "2023-08-15T00:00:00",
-      },
-    ];
+    this._selectedProjectInfo = [];
+    this._selectedTaskInfo = [];
     makeAutoObservable(this);
   }
 
@@ -49,6 +42,9 @@ export default class ProblemStore {
   setSelectedProjectInfo(selectedProjectInfo) {
     this._selectedProjectInfo = selectedProjectInfo;
   }
+  setSelectedTaskInfo(selectedTaskInfo) {
+    this._selectedTaskInfo = selectedTaskInfo;
+  }
 
   get projects() {
     return this._projects;
@@ -76,5 +72,8 @@ export default class ProblemStore {
   }
   get selectedProjectInfo() {
     return this._selectedProjectInfo;
+  }
+  get selectedTaskInfo() {
+    return this._selectedTaskInfo;
   }
 }

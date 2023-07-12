@@ -5,32 +5,26 @@ import moment from "moment";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
 import { fetchTasks, fetchTasksCalendar } from "../requests/problemAPI";
+import { useNavigate } from "react-router-dom";
 
 const localizer = momentLocalizer(moment);
 
-const CalendarIT = observer(() => {
+const CalendarProject = observer(() => {
   const { problem } = useContext(Context);
-
-  useEffect(() => {
-    fetchTasksCalendar(problem.selectedProject, problem.selectedStep).then(
-      (data) => {
-        problem.setTasks(data);
-        console.log(data);
-      }
-    );
-  }, [problem.selectedProject, problem.selectedStep]);
+  const navigate = useNavigate();
   return (
     <div>
       <Calendar
         localizer={localizer}
-        events={problem.tasks}
-        titleAccessor="task_name"
-        startAccessor="date_begin_task"
-        endAccessor="date_complete_task"
+        events={problem.projects}
+        titleAccessor="project_name"
+        startAccessor="date_begin_project"
+        endAccessor="date_complete_project"
         style={{ height: 500, margin: "20px 50px" }}
       />
+      if {problem.selectedStep} navigate("loh")
     </div>
   );
 });
 
-export default CalendarIT;
+export default CalendarProject;

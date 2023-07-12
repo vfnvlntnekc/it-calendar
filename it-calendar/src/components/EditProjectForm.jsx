@@ -10,8 +10,12 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { fetchProjectInfo, fetchProjects } from "../requests/problemAPI";
-import { useParams } from "react-router-dom";
+import {
+  fetchProjectInfo,
+  fetchProjects,
+  updateProject,
+} from "../requests/problemAPI";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditProjectForm = () => {
   const { id } = useParams();
@@ -23,6 +27,11 @@ const EditProjectForm = () => {
   const [description, setDescription] = useState("");
   const [begin, setBegin] = useState("");
   const [end, setEnd] = useState("");
+  const [nameChange, setNameChange] = useState("");
+  const [descriptionChange, setDescriptionChange] = useState("");
+  const [beginChange, setBeginChange] = useState("");
+  const [endChange, setEndChange] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProjectInfo(id).then((data) => {
@@ -33,8 +42,20 @@ const EditProjectForm = () => {
       setEnd(problem.selectedProjectInfo.data.date_complete_project);
 
       console.log(name);
+      console.log(id);
     });
   }, []);
+
+  const editProject = () => {
+    updateProject(id, {
+      name: nameChange,
+      project_description: descriptionChange,
+      date_begin_project: beginChange,
+      date_complete_project: endChange,
+    }).then((data) => console.log(data));
+    //console.log(id);
+    navigate("/");
+  };
 
   return (
     <Grid container style={gridStyle}>
@@ -55,6 +76,8 @@ const EditProjectForm = () => {
               placeholder={name}
               variant="outlined"
               style={marginStyle}
+              value={nameChange}
+              onChange={(e) => setNameChange(e.target.value)}
               fullWidth
             ></TextField>
             <TextField
@@ -64,6 +87,8 @@ const EditProjectForm = () => {
               rows={4}
               variant="outlined"
               style={marginStyle}
+              value={descriptionChange}
+              onChange={(e) => setDescriptionChange(e.target.value)}
               fullWidth
             />
             <TextField
@@ -74,6 +99,8 @@ const EditProjectForm = () => {
                 shrink: true,
               }}
               style={marginStyle}
+              value={beginChange}
+              onChange={(e) => setBeginChange(e.target.value)}
               fullWidth
             />
             <TextField
@@ -84,6 +111,8 @@ const EditProjectForm = () => {
                 shrink: true,
               }}
               style={marginStyle}
+              value={endChange}
+              onChange={(e) => setEndChange(e.target.value)}
               fullWidth
             />
             <Button
@@ -91,6 +120,7 @@ const EditProjectForm = () => {
               style={marginStyle}
               variant="contained"
               color="primary"
+              onClick={editProject}
               fullWidth
             >
               Изменить проект

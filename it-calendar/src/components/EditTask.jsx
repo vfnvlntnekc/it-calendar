@@ -84,21 +84,6 @@ const EditTask = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <InputLabel>Люди</InputLabel>
-              <Select
-                multiple
-                value={projectName}
-                onChange={(e) => setProjectName(e.target.value)}
-                MenuProps={MenuProps}
-              >
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <TextField
               label="Название задачи"
               placeholder="Введите название задачи"
@@ -142,7 +127,7 @@ const EditTask = () => {
               color="primary"
               fullWidth
             >
-              Добавить задачу
+              Изменить задачу
             </Button>
           </Grid>
         </Paper>

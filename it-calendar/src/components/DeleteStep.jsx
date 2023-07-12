@@ -10,10 +10,10 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { fetchProjects, fetchSteps } from "../requests/problemAPI";
+import { deleteStep, fetchProjects, fetchSteps } from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
 
-const EditStep = () => {
+const DeleteStep = () => {
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
@@ -35,7 +35,7 @@ const EditStep = () => {
     fetchSteps(problem.selectedProject).then((data) => {
       problem.setSteps(data);
     });
-  }, [problem.selectedProject]);
+  }, [project]);
 
   const handleChangeProject = (event) => {
     setProject(event.target.value);
@@ -47,6 +47,13 @@ const EditStep = () => {
     setStep(event.target.value);
     problem.setSelectedStep(event.target.value);
     console.log(event.target.value);
+  };
+
+  const stepDelete = () => {
+    deleteStep(problem.selectedProject, problem.selectedStep)
+      .then(console.log("good"))
+      .catch((e) => console.log(e));
+    //navigate("/delete");
   };
 
   return (
@@ -61,7 +68,7 @@ const EditStep = () => {
       >
         <Paper align="center" elevation={0} style={paperStyle}>
           <Grid>
-            <h2>Изменение этапа</h2>
+            <h2>Удаление этапа</h2>
             Пожалуйста, введите данные.
             <div></div>
             <FormControl fullWidth>
@@ -89,15 +96,10 @@ const EditStep = () => {
               style={marginStyle}
               variant="contained"
               color="primary"
-              href={
-                "/editStep/" +
-                problem.selectedProject +
-                "/" +
-                problem.selectedStep
-              }
+              onClick={stepDelete}
               fullWidth
             >
-              Изменить этап
+              Удалить этап
             </Button>
           </Grid>
         </Paper>
@@ -106,4 +108,4 @@ const EditStep = () => {
   );
 };
 
-export default EditStep;
+export default DeleteStep;

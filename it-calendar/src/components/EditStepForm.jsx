@@ -8,10 +8,13 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
+import { useParams } from "react-router-dom";
+import { fetchStepInfo } from "../requests/problemAPI";
 
 const EditStep = () => {
+  const id = useParams();
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
@@ -20,35 +23,33 @@ const EditStep = () => {
   const [projectName, setProjectName] = useState([]);
   const [project, setProject] = useState("");
   const [step, setStep] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [begin, setBegin] = useState("");
+  const [end, setEnd] = useState("");
+  console.log(id.step);
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
+  useEffect(() => {
+    fetchStepInfo(id.id, id.step).then((data) => {
+      problem.setSelectedTaskInfo(data);
+      setName(problem.setSelectedTaskInfo.data.name);
+      setDescription(problem.setSelectedTaskInfo.data.step_description);
+      setBegin(problem.setSelectedTaskInfo.data.date_begin_task);
+      setEnd(problem.setSelectedTaskInfo.data.date_complete_task);
 
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
-  const handleChange = (event) => {
-    setProject(event.target.value);
-    problem.setSelectedProject(event.target.value);
-    console.log(event.target.value);
+      console.log(name);
+      console.log(id);
+    });
+  }, []);
+  const editTask = () => {
+    updateProject(id, {
+      name: nameChange,
+      project_description: descriptionChange,
+      date_begin_project: beginChange,
+      date_complete_project: endChange,
+    }).then((data) => console.log(data));
+    //console.log(id);
+    navigate("/");
   };
   return (
     <Grid container style={gridStyle}>
@@ -65,26 +66,6 @@ const EditStep = () => {
             <h2>Изменение этапа</h2>
             Пожалуйста, введите данные.
             <div></div>
-            <FormControl fullWidth>
-              <InputLabel>Проект</InputLabel>
-              <Select value={project} onChange={handleChange}>
-                {problem.projects.data?.map((project) => (
-                  <MenuItem key={project.project_id} value={project.project_id}>
-                    {project.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel>Этап</InputLabel>
-              <Select value={step} onChange={(e) => setStep(e.target.value)}>
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <TextField
               label="Название этапа"
               placeholder="Введите название этапа"
@@ -128,7 +109,7 @@ const EditStep = () => {
               color="primary"
               fullWidth
             >
-              Добавить этап
+              Изменить этап
             </Button>
           </Grid>
         </Paper>

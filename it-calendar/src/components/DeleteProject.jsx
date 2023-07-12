@@ -10,19 +10,19 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { fetchProjects, fetchSteps } from "../requests/problemAPI";
+import {
+  deleteProject,
+  fetchProjectInfo,
+  fetchProjects,
+} from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
 
-const EditStep = () => {
+const DeleteProject = () => {
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
   const gridStyle = { height: "100vh", width: "vmax", background: "#F8F8F8" };
-
-  const [projectName, setProjectName] = useState([]);
   const [project, setProject] = useState("");
-  const [step, setStep] = useState("");
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,22 +31,17 @@ const EditStep = () => {
       .catch((e) => console.log(e));
   }, []);
 
-  useEffect(() => {
-    fetchSteps(problem.selectedProject).then((data) => {
-      problem.setSteps(data);
-    });
-  }, [problem.selectedProject]);
-
   const handleChangeProject = (event) => {
     setProject(event.target.value);
     problem.setSelectedProject(event.target.value);
-    console.log(event.target.value);
+    console.log(problem.selectedProject);
   };
 
-  const handleChangeStep = (event) => {
-    setStep(event.target.value);
-    problem.setSelectedStep(event.target.value);
-    console.log(event.target.value);
+  const projectDelete = () => {
+    deleteProject(problem.selectedProject)
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
+    //navigate("/delete");
   };
 
   return (
@@ -61,9 +56,8 @@ const EditStep = () => {
       >
         <Paper align="center" elevation={0} style={paperStyle}>
           <Grid>
-            <h2>Изменение этапа</h2>
-            Пожалуйста, введите данные.
-            <div></div>
+            <h2>Изменение проекта</h2>
+            Пожалуйста, выберите проект
             <FormControl fullWidth>
               <InputLabel>Проект</InputLabel>
               <Select value={project} onChange={handleChangeProject}>
@@ -74,30 +68,15 @@ const EditStep = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <InputLabel>Этап</InputLabel>
-              <Select value={step} onChange={handleChangeStep}>
-                {problem.steps.data?.map((step) => (
-                  <MenuItem key={step.step_id} value={step.step_id}>
-                    {step.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <Button
               type="submit"
               style={marginStyle}
               variant="contained"
               color="primary"
-              href={
-                "/editStep/" +
-                problem.selectedProject +
-                "/" +
-                problem.selectedStep
-              }
+              onClick={projectDelete}
               fullWidth
             >
-              Изменить этап
+              Удалить проект
             </Button>
           </Grid>
         </Paper>
@@ -106,4 +85,4 @@ const EditStep = () => {
   );
 };
 
-export default EditStep;
+export default DeleteProject;

@@ -12,10 +12,13 @@ import { Context } from "..";
 import {
   fetchPeople,
   fetchProjects,
+  fetchProjectsCalendar,
   fetchSteps,
   fetchTasks,
   getProject,
 } from "../requests/problemAPI";
+import AddStep from "../components/AddStep";
+import CalendarProject from "../components/CalendarProject";
 
 const MainPage = observer(() => {
   const { problem } = useContext(Context);
@@ -35,6 +38,7 @@ const MainPage = observer(() => {
       problem.setSteps(data);
     });
   }, [problem.selectedProject]);
+  useEffect(() => {}, [problem.selectedStep]);
 
   const handleChangeProject = (event) => {
     setProject(event.target.value);
@@ -44,7 +48,6 @@ const MainPage = observer(() => {
     setStep(event.target.value);
     problem.setSelectedStep(event.target.value);
   };
-
   const gridStyle = { height: "100vh", width: "vmax", background: "#F8F8F8" };
   console.log(problem);
   return (
