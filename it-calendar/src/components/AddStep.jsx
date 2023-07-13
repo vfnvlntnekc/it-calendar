@@ -8,10 +8,10 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
 import { useNavigate } from "react-router-dom";
-import { createStep } from "../requests/problemAPI";
+import { createStep, fetchProjects } from "../requests/problemAPI";
 
 const AddStep = () => {
   const { problem } = useContext(Context);
@@ -33,7 +33,14 @@ const AddStep = () => {
     problem.setSelectedProject(event.target.value);
     console.log(event.target.value);
   };
-
+  useEffect(() => {
+    fetchProjects()
+      .then((data) => {
+        problem.setProjects(data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+  console.log(problem);
   const addStep = () => {
     createStep(problem.selectedProject, {
       name: stepName,
@@ -92,7 +99,6 @@ const AddStep = () => {
             <TextField
               label="Время начала"
               type="datetime-local"
-              defaultValue="2023-07-07T10:30"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -104,7 +110,6 @@ const AddStep = () => {
             <TextField
               label="Время окончания"
               type="datetime-local"
-              defaultValue="2023-07-07T11:30"
               InputLabelProps={{
                 shrink: true,
               }}

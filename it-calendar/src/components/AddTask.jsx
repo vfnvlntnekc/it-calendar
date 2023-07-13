@@ -10,7 +10,12 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { createTask, fetchPeople, fetchSteps } from "../requests/problemAPI";
+import {
+  createTask,
+  fetchPeople,
+  fetchProjects,
+  fetchSteps,
+} from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
 
 const AddTask = () => {
@@ -30,17 +35,6 @@ const AddTask = () => {
 
   const navigate = useNavigate();
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
   const handleChangeProject = (event) => {
     setProject(event.target.value);
     problem.setSelectedProject(event.target.value);
@@ -52,18 +46,19 @@ const AddTask = () => {
     problem.setSelectedStep(event.target.value);
     console.log(event.target.value);
   };
-
+  useEffect(() => {
+    fetchProjects()
+      .then((data) => {
+        problem.setProjects(data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
   useEffect(() => {
     fetchSteps(problem.selectedProject).then((data) => {
       problem.setSteps(data);
+      console.log(problem);
     });
   }, [problem.selectedProject]);
-
-  useEffect(() => {
-    fetchPeople().then((data) => {
-      problem.setPeople(data);
-    });
-  }, []);
 
   const addTask = () => {
     createTask(problem.selectedProject, problem.selectedStep, {
@@ -74,21 +69,7 @@ const AddTask = () => {
     }).then((data) => console.log(data));
     navigate("/");
   };
-  /*<FormControl fullWidth>
-              <InputLabel>Исполнители</InputLabel>
-              <Select
-                multiple
-                value={people}
-                onChange={(e) => setPeople(e.target.value)}
-                MenuProps={MenuProps}
-              >
-                {problem.people.data?.map((user) => (
-                  <MenuItem key={user.user_id} value={user.user_id}>
-                    {user.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */
+
   return (
     <Grid container style={gridStyle}>
       <Grid

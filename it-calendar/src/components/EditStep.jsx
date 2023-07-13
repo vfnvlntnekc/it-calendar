@@ -34,6 +34,7 @@ const EditStep = () => {
   useEffect(() => {
     fetchSteps(problem.selectedProject).then((data) => {
       problem.setSteps(data);
+      console.log(problem.steps);
     });
   }, [problem.selectedProject]);
 

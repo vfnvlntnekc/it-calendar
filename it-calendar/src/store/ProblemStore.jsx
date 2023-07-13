@@ -11,6 +11,7 @@ export default class ProblemStore {
     this._selectedTask = {};
     this._selectedPeople = [];
     this._selectedProjectInfo = [];
+    this._selectedStepInfo = [];
     this._selectedTaskInfo = [];
     makeAutoObservable(this);
   }
@@ -42,6 +43,9 @@ export default class ProblemStore {
   setSelectedProjectInfo(selectedProjectInfo) {
     this._selectedProjectInfo = selectedProjectInfo;
   }
+  setSelectedStepInfo(selectedStepInfo) {
+    this._selectedStepInfo = selectedStepInfo;
+  }
   setSelectedTaskInfo(selectedTaskInfo) {
     this._selectedTaskInfo = selectedTaskInfo;
   }
@@ -72,6 +76,9 @@ export default class ProblemStore {
   }
   get selectedProjectInfo() {
     return this._selectedProjectInfo;
+  }
+  get selectedStepInfo() {
+    return this._selectedStepInfo;
   }
   get selectedTaskInfo() {
     return this._selectedTaskInfo;

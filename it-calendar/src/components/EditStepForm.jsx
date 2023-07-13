@@ -10,8 +10,8 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { useParams } from "react-router-dom";
-import { fetchStepInfo } from "../requests/problemAPI";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchStepInfo, updateStep } from "../requests/problemAPI";
 
 const EditStep = () => {
   const id = useParams();
@@ -27,26 +27,33 @@ const EditStep = () => {
   const [description, setDescription] = useState("");
   const [begin, setBegin] = useState("");
   const [end, setEnd] = useState("");
-  console.log(id.step);
+  console.log(id.step, id.id);
+  const [nameChange, setNameChange] = useState("");
+  const [descriptionChange, setDescriptionChange] = useState("");
+  const [beginChange, setBeginChange] = useState("");
+  const [endChange, setEndChange] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchStepInfo(id.id, id.step).then((data) => {
-      problem.setSelectedTaskInfo(data);
-      setName(problem.setSelectedTaskInfo.data.name);
-      setDescription(problem.setSelectedTaskInfo.data.step_description);
-      setBegin(problem.setSelectedTaskInfo.data.date_begin_task);
-      setEnd(problem.setSelectedTaskInfo.data.date_complete_task);
+      console.log(data);
+      problem.setSelectedStepInfo(data);
+      setName(problem.selectedStepInfo.data.name);
+      setDescription(problem.selectedStepInfo.data.step_description);
+      setBegin(problem.selectedStepInfo.data.date_begin_task);
+      setEnd(problem.selectedStepInfo.data.date_complete_task);
 
       console.log(name);
       console.log(id);
     });
   }, []);
-  const editTask = () => {
-    updateProject(id, {
-      name: nameChange,
-      project_description: descriptionChange,
-      date_begin_project: beginChange,
-      date_complete_project: endChange,
+
+  const editStep = () => {
+    updateStep(id.id, id.step, {
+      name: nameChange ? nameChange : name,
+      step_description: descriptionChange ? descriptionChange : description,
+      date_begin_step: beginChange ? beginChange : begin,
+      date_complete_step: endChange ? endChange : end,
     }).then((data) => console.log(data));
     //console.log(id);
     navigate("/");
@@ -71,6 +78,8 @@ const EditStep = () => {
               placeholder="Введите название этапа"
               variant="outlined"
               style={marginStyle}
+              value={nameChange}
+              onChange={(e) => setNameChange(e.target.value)}
               fullWidth
             ></TextField>
             <TextField
@@ -80,6 +89,8 @@ const EditStep = () => {
               rows={4}
               variant="outlined"
               style={marginStyle}
+              value={descriptionChange}
+              onChange={(e) => setDescriptionChange(e.target.value)}
               fullWidth
             />
             <TextField
@@ -90,6 +101,8 @@ const EditStep = () => {
                 shrink: true,
               }}
               style={marginStyle}
+              value={beginChange}
+              onChange={(e) => setBeginChange(e.target.value)}
               fullWidth
             />
             <TextField
@@ -100,6 +113,8 @@ const EditStep = () => {
                 shrink: true,
               }}
               style={marginStyle}
+              value={endChange}
+              onChange={(e) => setEndChange(e.target.value)}
               fullWidth
             />
             <Button
@@ -107,6 +122,7 @@ const EditStep = () => {
               style={marginStyle}
               variant="contained"
               color="primary"
+              onClick={editStep}
               fullWidth
             >
               Изменить этап

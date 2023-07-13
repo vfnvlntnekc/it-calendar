@@ -14,6 +14,21 @@ export const fetchProjectInfo = async (projectId) => {
   return { data };
 };
 
+export const createProject = async (project) => {
+  const { data } = await $host.post("project/projects", project);
+  return data;
+};
+
+export const updateProject = async (projectId, project) => {
+  const { data } = await $host.put("project/" + projectId, project);
+  return data;
+};
+
+export const deleteProject = async (projectId) => {
+  const { data } = await $host.delete("project/" + projectId);
+  return { data };
+};
+
 export const fetchSteps = async (projectId) => {
   const { data } = await $host.get("project/" + projectId + "/steps");
   return { data };
@@ -22,6 +37,21 @@ export const fetchSteps = async (projectId) => {
 export const fetchStepInfo = async (projectId, stepId) => {
   const { data } = await $host.get("project/" + projectId + "/" + stepId);
   return { data };
+};
+
+export const deleteStep = async (projectId, stepId) => {
+  const { data } = await $host.delete("project/" + projectId + "/" + stepId);
+  return { data };
+};
+
+export const createStep = async (projectId, step) => {
+  const { data } = await $host.post("project/" + projectId + "/steps", step);
+  return data;
+};
+
+export const updateStep = async (projectId, stepId, step) => {
+  const { data } = await $host.put("project/" + projectId + "/" + stepId, step);
+  return data;
 };
 
 export const fetchTasksCalendar = async (projectId, stepId) => {
@@ -38,32 +68,6 @@ export const fetchTasks = async (projectId, stepId) => {
   return { data };
 };
 
-export const fetchPeople = async () => {
-  const { data } = await $host.get("project/users");
-  console.log(data);
-  return { data };
-};
-
-export const createProject = async (project) => {
-  const { data } = await $host.post("project/projects", project);
-  return data;
-};
-
-export const updateProject = async (projectId, project) => {
-  const { data } = await $host.put("project/" + projectId, project);
-  return data;
-};
-
-export const deleteProject = async (projectId) => {
-  const { data } = await $host.delete("project/" + projectId);
-  return { data };
-};
-
-export const deleteStep = async (projectId, stepId) => {
-  const { data } = await $host.delete("project/" + projectId + "/" + stepId);
-  return { data };
-};
-
 export const deleteTask = async (projectId, stepId, task_id) => {
   const { data } = await $host.delete(
     "project/" + projectId + "/" + stepId + "/" + task_id
@@ -71,14 +75,16 @@ export const deleteTask = async (projectId, stepId, task_id) => {
   return { data };
 };
 
-export const createStep = async (projectId, step) => {
-  const { data } = await $host.post("project/" + projectId + "/steps", step);
-  return data;
-};
 export const createTask = async (projectId, stepId, task) => {
   const { data } = await $host.post(
     "project/" + projectId + "/" + stepId + "/tasks",
     task
   );
   return data;
+};
+
+export const fetchPeople = async () => {
+  const { data } = await $host.get("project/users");
+  console.log(data);
+  return { data };
 };

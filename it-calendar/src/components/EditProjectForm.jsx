@@ -48,10 +48,10 @@ const EditProjectForm = () => {
 
   const editProject = () => {
     updateProject(id, {
-      name: nameChange,
-      project_description: descriptionChange,
-      date_begin_project: beginChange,
-      date_complete_project: endChange,
+      name: nameChange ? nameChange : name,
+      project_description: descriptionChange ? descriptionChange : description,
+      date_begin_project: beginChange ? beginChange : begin,
+      date_complete_project: endChange ? endChange : end,
     }).then((data) => console.log(data));
     //console.log(id);
     navigate("/");
@@ -62,7 +62,7 @@ const EditProjectForm = () => {
       <Grid
         item
         container
-        xs={12}
+        xs={6}
         direction="row"
         justifyContent="center"
         alignItems="top"
@@ -126,6 +126,25 @@ const EditProjectForm = () => {
               Изменить проект
             </Button>
           </Grid>
+        </Paper>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={6}
+        direction="row"
+        justifyContent="center"
+        alignItems="top"
+      >
+        <Paper>
+          Название: {name}
+          <div></div>
+          Описание: {description}
+          <div></div>
+          дата начала: {begin}
+          <div></div>
+          дата окончания:{end}
+          <div></div>
         </Paper>
       </Grid>
     </Grid>

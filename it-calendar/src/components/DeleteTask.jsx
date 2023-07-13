@@ -71,10 +71,14 @@ const DeleteTask = () => {
   };
 
   const taskDelete = () => {
-    deleteStep(problem.selectedProject, problem.selectedStep)
+    deleteTask(
+      problem.selectedProject,
+      problem.selectedStep,
+      problem.selectedTask
+    )
       .then(console.log("good"))
       .catch((e) => console.log(e));
-    //navigate("/delete");
+    navigate("/delete");
   };
 
   return (
