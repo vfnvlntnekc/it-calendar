@@ -16,8 +16,9 @@ import {
   updateProject,
 } from "../requests/problemAPI";
 import { useNavigate, useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-const EditProjectForm = () => {
+const EditProjectForm = observer(() => {
   const { id } = useParams();
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
@@ -149,6 +150,6 @@ const EditProjectForm = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default EditProjectForm;

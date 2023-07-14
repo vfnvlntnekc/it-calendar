@@ -10,8 +10,9 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { Context } from "..";
+import { observer } from "mobx-react-lite";
 
-const EditTask = () => {
+const EditTask = observer(() => {
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
@@ -32,23 +33,24 @@ const EditTask = () => {
     },
   };
 
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
+  // const names = [
+  //   "Oliver Hansen",
+  //   "Van Henry",
+  //   "April Tucker",
+  //   "Ralph Hubbard",
+  //   "Omar Alexander",
+  //   "Carlos Abbott",
+  //   "Miriam Wagner",
+  //   "Bradley Wilkerson",
+  //   "Virginia Andrews",
+  //   "Kelly Snyder",
+  // ];
   const handleChange = (event) => {
     setProject(event.target.value);
     problem.setSelectedProject(event.target.value);
     console.log(event.target.value);
   };
+  
   return (
     <Grid container style={gridStyle}>
       <Grid
@@ -77,9 +79,9 @@ const EditTask = () => {
             <FormControl fullWidth>
               <InputLabel>Этап</InputLabel>
               <Select value={step} onChange={(e) => setStep(e.target.value)}>
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
+                {problem.step.data?.map((step) => (
+                  <MenuItem key={step.step_id} value={step.step_id}>
+                    {step.name}
                   </MenuItem>
                 ))}
               </Select>
@@ -134,6 +136,6 @@ const EditTask = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default EditTask;

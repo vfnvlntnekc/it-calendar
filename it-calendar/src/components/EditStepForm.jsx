@@ -12,8 +12,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchStepInfo, updateStep } from "../requests/problemAPI";
+import { observer } from "mobx-react-lite";
 
-const EditStep = () => {
+const EditStep = observer(() => {
   const id = useParams();
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
@@ -132,6 +133,6 @@ const EditStep = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default EditStep;

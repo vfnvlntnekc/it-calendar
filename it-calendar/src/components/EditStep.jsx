@@ -12,8 +12,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
 import { fetchProjects, fetchSteps } from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-const EditStep = () => {
+const EditStep = observer(() => {
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
@@ -105,6 +106,6 @@ const EditStep = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default EditStep;

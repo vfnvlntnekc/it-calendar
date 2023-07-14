@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import {
   Button,
   FormControl,
@@ -18,8 +19,9 @@ import {
   fetchTasks,
 } from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
+import DeletePage from "../pages/DeletePage";
 
-const DeleteTask = () => {
+const DeleteTask = observer(() => {
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
@@ -141,6 +143,6 @@ const DeleteTask = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default DeleteTask;

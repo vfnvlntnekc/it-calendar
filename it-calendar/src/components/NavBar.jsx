@@ -4,8 +4,9 @@ import AppBar from "@material-ui/core/AppBar";
 import { Link, Toolbar } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { Context } from "..";
+import { observer } from "mobx-react-lite";
 
-const NavBar = () => {
+const NavBar = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
   return (
@@ -79,6 +80,6 @@ const NavBar = () => {
       </Toolbar>
     </AppBar>
   );
-};
+});
 
 export default NavBar;

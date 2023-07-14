@@ -17,8 +17,9 @@ import {
   fetchSteps,
 } from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-const AddTask = () => {
+const AddTask = observer(() => {
   const { problem } = useContext(Context);
 
   const paperStyle = { width: 500, background: "#F8F8F8" };
@@ -164,6 +165,6 @@ const AddTask = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default AddTask;

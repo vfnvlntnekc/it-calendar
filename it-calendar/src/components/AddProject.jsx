@@ -1,9 +1,10 @@
+import { observer } from "mobx-react-lite";
 import { Button, Grid, Paper, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { createProject } from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
 
-const AddProject = () => {
+const AddProject = observer(() => {
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
   const gridStyle = { height: "100vh", width: "vmax", background: "#F8F8F8" };
@@ -98,6 +99,6 @@ const AddProject = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default AddProject;

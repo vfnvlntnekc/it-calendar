@@ -16,8 +16,9 @@ import {
   fetchProjects,
 } from "../requests/problemAPI";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-const DeleteProject = () => {
+const DeleteProject = observer(() => {
   const { problem } = useContext(Context);
   const paperStyle = { width: 500, background: "#F8F8F8" };
   const marginStyle = { margin: "10px 0" };
@@ -83,6 +84,6 @@ const DeleteProject = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default DeleteProject;

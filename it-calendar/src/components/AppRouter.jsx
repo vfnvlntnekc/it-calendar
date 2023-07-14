@@ -17,7 +17,9 @@ import DeletePage from "../pages/DeletePage";
 import DeleteProject from "./DeleteProject";
 import DeleteStep from "./DeleteStep";
 import DeleteTask from "./DeleteTask";
-const AppRouter = () => {
+import { observer } from "mobx-react-lite";
+
+const AppRouter = observer(() => {
   return (
     <Routes>
       <Route path="/auth" element={<Auth />} />
@@ -41,6 +43,6 @@ const AppRouter = () => {
       <Route path="/" element={<MainPage />} />
     </Routes>
   );
-};
+});
 
 export default AppRouter;
