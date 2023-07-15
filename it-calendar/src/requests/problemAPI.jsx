@@ -91,10 +91,10 @@ export const fetchTasksCalendar = async (projectId, stepId) => {
   );
   return data;
   }
-  // else {
-  //   const { data } = {};
-  // return { data };
-  // }
+  else {
+    const { data } = {};
+  return { data };
+  }
 };
 
 export const fetchTasks = async (projectId, stepId) => {
@@ -104,10 +104,10 @@ export const fetchTasks = async (projectId, stepId) => {
   );
   return { data };
   }
-  // else {
-  //   const { data } = {};
-  // return { data };
-  // }
+  else {
+    const { data } = {};
+  return { data };
+  }
 };
 
 export const deleteTask = async (projectId, stepId, task_id) => {
@@ -118,10 +118,10 @@ export const deleteTask = async (projectId, stepId, task_id) => {
   );
   return { data };
   }
-  // else {
-  //   const { data } = {};
-  // return { data };
-  // }
+  else {
+    const { data } = {};
+  return { data };
+  }
 };
 
 export const createTask = async (projectId, stepId, task) => {
@@ -132,10 +132,10 @@ export const createTask = async (projectId, stepId, task) => {
   );
   return data;
   }
-  // else {
-  //   const { data } = {};
-  // return { data };
-  // }
+  else {
+    const { data } = {};
+  return { data };
+  }
 };
 
 export const fetchPeople = async () => {

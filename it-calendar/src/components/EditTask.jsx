@@ -76,7 +76,7 @@ const EditTask = observer(() => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel>Этап</InputLabel>
               <Select value={step} onChange={(e) => setStep(e.target.value)}>
                 {problem.step.data?.map((step) => (
@@ -85,7 +85,7 @@ const EditTask = observer(() => {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
             <TextField
               label="Название задачи"
               placeholder="Введите название задачи"
